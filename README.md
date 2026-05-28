@@ -41,7 +41,48 @@
 ### Step 14: 
   Stop
 # Program:
+```
+#include <stdio.h>
+int isLeapYear(int year) {
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+}
+int isValidDate(int day, int month, int year) {
+    if (year < 1 || month < 1 || month > 12 || day < 1)
+        return 0;
+
+    int maxDays;
+
+    switch (month) {
+        case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+            maxDays = 31; break;
+        case 4: case 6: case 9: case 11:
+            maxDays = 30; break;
+        case 2:
+            maxDays = isLeapYear(year) ? 29 : 28; break;
+        default:
+            return 0;
+    }
+
+    if (day > maxDays)
+        return 0;
+
+    return 1;
+}
+
+int main() {
+    int day, month, year;
+    scanf("%d/%d/%d", &day, &month, &year);
+
+    if (isValidDate(day, month, year))
+        printf("The date %02d/%02d/%d is valid.\n", day, month, year);
+    else
+        printf("The date %02d/%02d/%d is invalid.\n", day, month, year);
+
+    return 0;
+}
+```
 # Output:
+29/02/2024 The date 29/02/2024 is valid. 31/06/2023 The date 31/06/2023 is invalid.
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -89,7 +130,29 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 13: 
   Stop
 # Program:
+```
+#include <stdio.h>
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int min(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+int main() {
+    int num1, num2;
+    scanf("%d %d", &num1, &num2);
+
+    printf("Maximum value: %d\n", max(num1, num2));
+    printf("Minimum value: %d\n", min(num1, num2));
+
+    return 0;
+}
+```
 # Output:
+25 40 Maximum value: 40 Minimum value: 25
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -137,7 +200,28 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 11: 
  Stop
 # Program:
+```
+#include <stdio.h>
+float celsiusToFahrenheit(float celsius) {
+    return (celsius * 9 / 5) + 32;
+}
+float fahrenheitToCelsius(float fahrenheit) {
+    return (fahrenheit - 32) * 5 / 9;
+}
+
+int main() {
+    float celsius, fahrenheit;
+    scanf("%f", &celsius);
+    printf("%.2f Celsius = %.2f Fahrenheit\n", celsius, celsiusToFahrenheit(celsius));
+    scanf("%f", &fahrenheit);
+    printf("%.2f Fahrenheit = %.2f Celsius\n", fahrenheit, fahrenheitToCelsius(fahrenheit));
+
+    return 0;
+}
+```
+
 # Output:
+25.00 Celsius = 77.00 Fahrenheit 98.60 Fahrenheit = 37.00 Celsius
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -185,7 +269,47 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 7: 
   Stop
 # Program:
+```
+#include <stdio.h>
+void spiralPrint(int rows, int cols, int matrix[rows][cols]) {
+    int top = 0, bottom = rows - 1;
+    int left = 0, right = cols - 1;
+
+    printf("Spiral order: ");
+    
+    while (top <= bottom && left <= right) {
+        for (int i = left; i <= right; i++)
+            printf("%d ", matrix[top][i]);
+        top++;
+        for (int i = top; i <= bottom; i++)
+            printf("%d ", matrix[i][right]);
+        right--;
+        if (top <= bottom) {
+            for (int i = right; i >= left; i--)
+                printf("%d ", matrix[bottom][i]);
+            bottom--;
+        }
+        if (left <= right) {
+            for (int i = bottom; i >= top; i--)
+                printf("%d ", matrix[i][left]);
+            left++;
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int matrix[4][4];
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+            scanf("%d", &matrix[i][j]);
+    spiralPrint(4, 4, matrix);
+
+    return 0;
+}
+```
 # Output:
+Spiral order: 1 2 3 4 8 12 16 15 14 13 9 5 6 7 11 10
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -220,7 +344,37 @@ To build a C program to convert a string as described above, using a user-define
 ### Step 6: 
  Stop
 # Program:
+```
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+void convertString(char str[]) {
+    int len = strlen(str);
+
+    if (len == 0) return;
+    str[0] = toupper(str[0]);
+    str[len - 1] = toupper(str[len - 1]);
+    for (int i = 1; i < len - 1; i++) {
+        if (str[i] == ' ') {
+            str[i - 1] = toupper(str[i - 1]);
+            str[i + 1] = toupper(str[i + 1]);
+        }
+    }
+}
+
+int main() {
+    char str[100];
+    fgets(str, sizeof(str), stdin);
+    int len = strlen(str);
+    if (str[len - 1] == '\n') str[len - 1] = '\0';
+    convertString(str);
+    printf("Converted string: %s\n", str);
+    return 0;
+}
+```
+
 # Output:
+Converted string: HELlO WORlD PROgRAM
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
